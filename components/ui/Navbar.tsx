@@ -28,20 +28,20 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(({ className = '' }, ref)
       </div>
 
       {/* Navigation Pill - Top Right */}
-      <div className="bg-white/10 backdrop-blur-md rounded-lg cursor-pointer px-2 py-2 border border-white/20">
+      <div className="bg-white/20 backdrop-blur-md rounded-lg cursor-pointer px-2 py-2">
         <div className="flex items-center space-x-1">
-          <button className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
+          <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
             PLATFORM
           </button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
+          <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
             COMPANY
           </button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
+          <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
             NEWSROOM
           </button>
           <Link
             href="#"
-            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all"
+            className="px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all"
           >
             WORK WITH US
           </Link>
