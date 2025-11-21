@@ -88,7 +88,7 @@ export default function Feature({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=300vh', // Match the progress bar duration
+        end: '+=500vh', // Match the progress bar duration
         scrub: 1,
       }
     });
@@ -99,7 +99,7 @@ export default function Feature({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=300vh', // Make it much longer for better animation experience
+        end: '+=500vh', // Make it much longer for better animation experience
         scrub: 1,
         pin: true,
         pinSpacing: true,
@@ -228,10 +228,10 @@ export default function Feature({
 
           {/* Right side - 2/3 width */}
           <div ref={contentRef} className="w-2/3 px-8 pr-16">
-            <h2 ref={titleRef} className="text-4xl md:text-5xl text-white mb-6 leading-tight">
+            <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {currentContent.title}
             </h2>
-            <p ref={descriptionRef} className="text-xl md:text-2xl text-white leading-relaxed text-balance">
+            <p ref={descriptionRef} className="text-2xl md:text-3xl text-white leading-relaxed text-balance">
               {currentContent.description}
             </p>
           </div>

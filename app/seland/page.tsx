@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import OriginalIridescence from '@/components/OriginalIridescence';
 import SelandNavbar from '@/components/ui/SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
-import Feature from '@/components/seland/SectionLayout';
+import Feature from '@/components/seland/Feature';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
