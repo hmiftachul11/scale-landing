@@ -16,28 +16,12 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
-    const navbar = typeof ref === 'object' && ref?.current ? ref.current : null;
     const logo = logoRef.current;
-    if (!navbar || !logo) return;
+    if (!logo) return;
 
-    // GSAP ScrollTrigger for navbar background
-    const navbarAnimation = gsap.to(navbar, {
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      duration: 0.3,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top -50px',
-        end: 'bottom top',
-        toggleActions: 'play none none reverse',
-      }
-    });
-
-    // GSAP ScrollTrigger for logo background (only for scroll-triggered styling)
+    // GSAP ScrollTrigger for logo background (same as original Navbar)
     const logoAnimation = gsap.to(logo, {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      backgroundColor: 'rgba(255, 255, 255, 0.2)', // Made more visible for testing
       backdropFilter: 'blur(12px)',
       borderRadius: '8px',
       paddingTop: '8px',
@@ -48,19 +32,19 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
       ease: 'power2.out',
       scrollTrigger: {
         trigger: 'body',
-        start: 'top -100px',
+        start: 'top -50px', // Changed to earlier trigger
         end: 'bottom top',
         toggleActions: 'play none none reverse',
+        onEnter: () => console.log('SelandNavbar: Logo background ON'),
+        onLeaveBack: () => console.log('SelandNavbar: Logo background OFF'),
       }
     });
 
     return () => {
-      navbarAnimation.scrollTrigger?.kill();
-      navbarAnimation.kill();
       logoAnimation.scrollTrigger?.kill();
       logoAnimation.kill();
     };
-  }, [ref]);
+  }, []);
 
   return (
     <div ref={ref} className={`fixed top-10 left-10 right-10 z-50 px-6 py-4 transition-all duration-300 ${className}`}>
