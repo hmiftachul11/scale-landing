@@ -42,6 +42,8 @@ export default function SectionLayout({
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
   const [activeContent, setActiveContent] = useState(0);
   const previousContentRef = useRef(0);
 
@@ -51,11 +53,45 @@ export default function SectionLayout({
     const section = sectionRef.current;
     const progressBar = progressRef.current;
     const content = contentRef.current;
-    if (!section || !progressBar || !content) return;
+    const title = titleRef.current;
+    const description = descriptionRef.current;
+    if (!section || !progressBar || !content || !title || !description) return;
 
     // Set initial states
     gsap.set(progressBar, { scaleX: 0, transformOrigin: 'left center' });
     gsap.set(content, { opacity: 1, y: 0 }); // Make first content visible
+
+    // Split text into words and wrap each word in a span
+    const splitTextIntoWords = (element: HTMLElement) => {
+      const text = element.textContent || '';
+      const words = text.split(' ');
+      element.innerHTML = words.map(word => 
+        `<span style="opacity: 0.6; color: white; display: inline-block; margin-right: 0.25em;">${word}</span>`
+      ).join('');
+      return element.querySelectorAll('span');
+    };
+
+    // Split title and description into word spans
+    const titleWords = splitTextIntoWords(title);
+    const descriptionWords = splitTextIntoWords(description);
+    const allWords = [...titleWords, ...descriptionWords];
+
+    // Word-by-word reveal animation
+    const wordRevealAnimation = gsap.to(allWords, {
+      opacity: 1,
+      duration: 1,
+      stagger: {
+        each: 0.1,
+        from: 'start'
+      },
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: '+=300vh', // Match the progress bar duration
+        scrub: 1,
+      }
+    });
 
     const scrollTrigger = gsap.to(progressBar, {
       scaleX: 1,
@@ -63,7 +99,7 @@ export default function SectionLayout({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: 'bottom top',
+        end: '+=300vh', // Make it much longer for better animation experience
         scrub: 1,
         pin: true,
         pinSpacing: true,
@@ -78,6 +114,21 @@ export default function SectionLayout({
             newContentIndex = 1;
           } else {
             newContentIndex = 0;
+          }
+
+          // Continuous word reveal animation based on progress
+          const currentWords = content.querySelectorAll('span');
+          if (currentWords.length > 0) {
+            const stepProgress = ((progress * 3) % 1); // Progress within current step
+            const wordsToReveal = Math.floor(stepProgress * currentWords.length);
+            
+            currentWords.forEach((word, index) => {
+              if (index <= wordsToReveal) {
+                gsap.set(word, { opacity: 1 });
+              } else {
+                gsap.set(word, { opacity: 0.6 });
+              }
+            });
           }
 
           // Only animate if content is actually changing
@@ -96,6 +147,22 @@ export default function SectionLayout({
                 onComplete: () => {
                   // Update content
                   setActiveContent(newContentIndex);
+                  
+                  // Re-split and setup new words for animation
+                  setTimeout(() => {
+                    const newTitleWords = splitTextIntoWords(title);
+                    const newDescriptionWords = splitTextIntoWords(description);
+                    const newAllWords = [...newTitleWords, ...newDescriptionWords];
+                    
+                    // Calculate progress within current step for word reveal
+                    const stepProgress = ((progress * 3) % 1);
+                    const wordsToReveal = Math.floor(stepProgress * newAllWords.length);
+                    
+                    // Set initial state for new words and reveal based on current progress
+                    gsap.set(newAllWords, { opacity: 0.6 });
+                    gsap.set(newAllWords.slice(0, wordsToReveal), { opacity: 1 });
+                  }, 50);
+                  
                   // Fade in new content (fade down)
                   gsap.fromTo(content, 
                     { opacity: 0, y: 20 },
@@ -112,6 +179,8 @@ export default function SectionLayout({
     return () => {
       scrollTrigger.scrollTrigger?.kill();
       scrollTrigger.kill();
+      wordRevealAnimation.scrollTrigger?.kill();
+      wordRevealAnimation.kill();
     };
   }, []);
 
@@ -159,10 +228,10 @@ export default function SectionLayout({
 
           {/* Right side - 2/3 width */}
           <div ref={contentRef} className="w-2/3 px-8 pr-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 ref={titleRef} className="text-4xl md:text-5xl text-white mb-6 leading-tight">
               {currentContent.title}
             </h2>
-            <p className="text-xl md:text-2xl text-white leading-relaxed font-light text-balance">
+            <p ref={descriptionRef} className="text-xl md:text-2xl text-white leading-relaxed text-balance">
               {currentContent.description}
             </p>
           </div>
