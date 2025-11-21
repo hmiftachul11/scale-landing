@@ -6,9 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import OriginalIridescence from '@/components/OriginalIridescence';
 import SelandNavbar from '@/components/ui/SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
-import HowToWorkSection from '@/components/landing/HowToWork';
-import FeatureSection from '@/components/seland/Feature';
-import SectionLayout from '@/components/seland/SectionLayout';
+import Feature from '@/components/seland/SectionLayout';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -134,7 +132,7 @@ export default function SelandPage() {
         </div>
       </div>
       
-      <SectionLayout
+      <Feature
         label="Features"
         currentStep={1}
         totalSteps={3}

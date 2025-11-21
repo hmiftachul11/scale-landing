@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-interface SectionLayoutProps {
+interface FeatureProps {
   label?: string
   currentStep?: number
   totalSteps?: number
@@ -31,14 +31,14 @@ const featureContents = [
   },
 ];
 
-export default function SectionLayout({
+export default function Feature({
   label,
   currentStep = 1,
   totalSteps = 3,
   title,
   description,
   backgroundImage,
-}: SectionLayoutProps) {
+}: FeatureProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
