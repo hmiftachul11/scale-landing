@@ -5,12 +5,17 @@ import FeatureSection from './Feature';
 import HeroSection from './Hero';
 import HowToWorkSection from './HowToWork';
 import StickyNavbar from '@/components/ui/StickyNavbar';
+import AnimatedContainer from '@/components/ui/AnimatedContainer';
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
       <StickyNavbar />
-      <HeroSection />
+      <section className="relative min-h-screen bg-black flex items-center justify-center p-6 overflow-hidden">
+        <AnimatedContainer>
+          <HeroSection />
+        </AnimatedContainer>
+      </section>
 
       <FeatureSection />
 
