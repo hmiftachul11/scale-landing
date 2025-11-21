@@ -8,6 +8,7 @@ import SelandNavbar from '@/components/ui/SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import HowToWorkSection from '@/components/landing/HowToWork';
 import FeatureSection from '@/components/seland/Feature';
+import SectionLayout from '@/components/seland/SectionLayout';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -133,9 +134,13 @@ export default function SelandPage() {
         </div>
       </div>
       
-      <div className="relative z-10">
-        <FeatureSection />
-      </div>
+      <SectionLayout
+        label="Features"
+        currentStep={1}
+        totalSteps={3}
+        title="Ultimate Capital Efficiency"
+        description="Maximize returns by keeping your entire portfolio productive. Trade your assets while they earn yield through our revolutionary DeFi platform that leverages intelligent automation for optimal capital efficiency."
+      />
     </div>
   );
 }
