@@ -68,7 +68,7 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
   const mousePos = useRef({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
-    const ctn = ref?.current || ctnDom.current;
+    const ctn = (typeof ref === 'object' && ref?.current) || ctnDom.current;
     if (!ctn) return;
     const renderer = new Renderer();
     const gl = renderer.gl;
@@ -77,9 +77,10 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
     let program: Program;
 
     function resize() {
+      if (!ctn) return;
       const scale = 1;
-      const width = Math.max(ctn.offsetWidth, 1);
-      const height = Math.max(ctn.offsetHeight, 1);
+      const width = Math.max(ctn.offsetWidth, 10);  // Minimum 10px for proper rendering
+      const height = Math.max(ctn.offsetHeight, 10); // Minimum 10px for proper rendering
       renderer.setSize(width * scale, height * scale);
       if (program) {
         program.uniforms.uResolution.value = new Color(
@@ -88,6 +89,9 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
           gl.canvas.width / gl.canvas.height
         );
       }
+      
+      // Keep canvas always visible - let WebGL handle small sizes gracefully
+      gl.canvas.style.opacity = '1';
     }
     window.addEventListener('resize', resize, false);
     resize();
@@ -126,6 +130,7 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
     ctn.appendChild(gl.canvas);
 
     function handleMouseMove(e: MouseEvent) {
+      if (!ctn) return;
       const rect = ctn.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1.0 - (e.clientY - rect.top) / rect.height;
@@ -133,7 +138,7 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
       program.uniforms.uMouse.value[0] = x;
       program.uniforms.uMouse.value[1] = y;
     }
-    if (mouseReact) {
+    if (mouseReact && ctn) {
       ctn.addEventListener('mousemove', handleMouseMove);
     }
 
@@ -141,10 +146,10 @@ const Iridescence = forwardRef<HTMLDivElement, IridescenceProps>(({
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
       resizeObserver.disconnect();
-      if (mouseReact) {
+      if (mouseReact && ctn) {
         ctn.removeEventListener('mousemove', handleMouseMove);
       }
-      if (ctn.contains(gl.canvas)) {
+      if (ctn && ctn.contains(gl.canvas)) {
         ctn.removeChild(gl.canvas);
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
