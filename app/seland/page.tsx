@@ -18,9 +18,31 @@ export default function SelandPage() {
     const bg = bgRef.current;
     if (!bg) return;
 
-    // Set initial state on page load (like onLeaveBack)
+    // Set final size immediately but scale to 0
     bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
-    bg.style.transition = 'all 1s ease-in-out';
+    gsap.set(bg, {
+      scale: 0.001, // Nearly invisible but not 0 to avoid issues
+      borderRadius: '50%',
+      transformOrigin: 'center center',
+    });
+
+    // Animation: grow from center using scale
+    const tl = gsap.timeline({ delay: 0 });
+
+    tl.to(bg, {
+      scale: 1,
+      borderRadius: '24px', // rounded-2xl in px
+      duration: 2.5,
+      ease: 'power3.out',
+      onComplete: () => {
+        // After animation, set up for scroll behavior
+        bg.style.transition = 'all 1s ease-in-out';
+        // Clear GSAP styles to let CSS take over
+        bg.style.scale = '';
+        bg.style.borderRadius = '';
+        bg.style.transformOrigin = '';
+      }
+    });
 
     // Animation to change classes on scroll
     ScrollTrigger.create({
