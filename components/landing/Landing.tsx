@@ -4,10 +4,12 @@ import CallToActionSection from './CallToAction';
 import FeatureSection from './Feature';
 import HeroSection from './Hero';
 import HowToWorkSection from './HowToWork';
+import StickyNavbar from '@/components/ui/StickyNavbar';
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
+      <StickyNavbar />
       <HeroSection />
 
       <FeatureSection />
