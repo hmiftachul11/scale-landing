@@ -13,13 +13,15 @@ import { SmoothCursor } from '@/components/ui/smooth-cursor';
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const navbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
     const bg = bgRef.current;
     const content = contentRef.current;
-    if (!bg || !content) return;
+    const navbar = navbarRef.current;
+    if (!bg || !content || !navbar) return;
 
     // Set final size immediately but scale to 0
     bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
@@ -29,9 +31,13 @@ export default function SelandPage() {
       transformOrigin: 'center center',
     });
 
-    // Hide content initially
+    // Hide content and navbar initially
     gsap.set(content.children, {
       y: 50,
+      opacity: 0,
+    });
+    gsap.set(navbar, {
+      y: -20,
       opacity: 0,
     });
 
@@ -53,6 +59,13 @@ export default function SelandPage() {
         bg.style.transformOrigin = '';
       }
     })
+    // Navbar reveal animation
+    .to(navbar, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out',
+    }, "-=1.2") // Start 1.2s before background animation ends
     // Content reveal animation - staggered from bottom to top
     .to(content.children, {
       y: 0,
@@ -98,7 +111,9 @@ export default function SelandPage() {
 
   return (
     <>
-      <SelandNavbar />
+      <div ref={navbarRef} className="relative z-50">
+        <SelandNavbar />
+      </div>
       
       <div className="min-h-screen">
         <div 
