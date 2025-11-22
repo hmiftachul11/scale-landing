@@ -90,6 +90,7 @@ export function SmoothCursor({
   },
 }: SmoothCursorProps) {
   const [isMoving, setIsMoving] = useState(false)
+  const [isOverClickable, setIsOverClickable] = useState(false)
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
   const lastUpdateTime = useRef(Date.now())
@@ -125,9 +126,26 @@ export function SmoothCursor({
       lastMousePos.current = currentPos
     }
 
+    const checkIfOverClickable = (e: MouseEvent) => {
+      const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY)
+      if (elementUnderCursor) {
+        const isClickable = elementUnderCursor.classList.contains('cursor-pointer') ||
+          elementUnderCursor.tagName === 'BUTTON' ||
+          elementUnderCursor.tagName === 'A' ||
+          elementUnderCursor.closest('button') ||
+          elementUnderCursor.closest('a') ||
+          elementUnderCursor.closest('[role="button"]') ||
+          elementUnderCursor.closest('.cursor-pointer')
+        setIsOverClickable(!!isClickable)
+      } else {
+        setIsOverClickable(false)
+      }
+    }
+
     const smoothMouseMove = (e: MouseEvent) => {
       const currentPos = { x: e.clientX, y: e.clientY }
       updateVelocity(currentPos)
+      checkIfOverClickable(e)
 
       const speed = Math.sqrt(
         Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2)
@@ -170,15 +188,34 @@ export function SmoothCursor({
       })
     }
 
-    document.body.style.cursor = "none"
     window.addEventListener("mousemove", throttledMouseMove)
+    
+    // Update cursor style based on hover state
+    const updateCursorStyle = () => {
+      if (isOverClickable) {
+        document.body.style.cursor = "pointer"
+      } else {
+        document.body.style.cursor = "none"
+      }
+    }
+    
+    updateCursorStyle()
 
     return () => {
       window.removeEventListener("mousemove", throttledMouseMove)
       document.body.style.cursor = "auto"
       if (rafId) cancelAnimationFrame(rafId)
     }
-  }, [cursorX, cursorY, rotation, scale])
+  }, [cursorX, cursorY, rotation, scale, isOverClickable])
+
+  // Update cursor style when hover state changes
+  useEffect(() => {
+    if (isOverClickable) {
+      document.body.style.cursor = "pointer"
+    } else {
+      document.body.style.cursor = "none"
+    }
+  }, [isOverClickable])
 
   return (
     <motion.div
@@ -193,9 +230,10 @@ export function SmoothCursor({
         zIndex: 100,
         pointerEvents: "none",
         willChange: "transform",
+        opacity: isOverClickable ? 0 : 1,
       }}
       initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
+      animate={{ scale: isOverClickable ? 0 : 1 }}
       transition={{
         type: "spring",
         stiffness: 400,
