@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import OriginalIridescence from '@/components/OriginalIridescence';
-import SelandNavbar from '@/components/ui/SelandNavbar';
+import SelandNavbar from '@/components/seland/SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import Feature from '@/components/seland/Feature';
+import { HowItWork } from '@/components/seland/HowItWork';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -95,50 +96,54 @@ export default function SelandPage() {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <div 
-        ref={bgRef}
-        className="fixed inset-0 z-0 m-[-40] rounded-2xl overflow-hidden"
-      >
-        <OriginalIridescence
-          color={[0.93, 0.41, 0.09]}
-          speed={1}
-          amplitude={0.05}
-          mouseReact={true}
-        />
-        <div className="absolute inset-0 bg-black/70" />
-      </div>
-
-      <div ref={contentRef} className="relative z-10 h-[calc(100vh-48px)] m-6">
-        <SelandNavbar />
-
-        <div className="absolute top-1/4 left-10 z-20">
-          <h2 className="max-w-5xl text-2xl md:text-4xl lg:text-8xl font-bold leading-tight text-white">
-            Start Earning Yield While Trading
-          </h2>
-        </div>
-
-        <div className="absolute bottom-10 left-10 z-20 max-w-2xl">
-          <p className="text-white/90 text-xl leading-relaxed">
-            Trade Your Assets While They Earn Yield. Revolutionary DeFi platform that maximizes capital efficiency through intelligent automation.
-          </p>
-        </div>
-
-        <div className="absolute bottom-10 right-10 z-20">
-          <LaunchAppButton
-            text="Launch App"
-            href="/app"
+    <>
+      <SelandNavbar />
+      
+      <div className="min-h-screen">
+        <div 
+          ref={bgRef}
+          className="fixed inset-0 z-0 m-[-40] rounded-2xl overflow-hidden"
+        >
+          <OriginalIridescence
+            color={[0.93, 0.41, 0.09]}
+            speed={1}
+            amplitude={0.05}
+            mouseReact={true}
           />
+          <div className="absolute inset-0 bg-black/70" />
         </div>
+
+        <div ref={contentRef} className="relative z-10 h-[calc(100vh-48px)] m-6">
+          <div className="absolute top-1/4 left-10 z-20">
+            <h2 className="max-w-5xl text-2xl md:text-4xl lg:text-8xl font-bold leading-tight text-white">
+              Start Earning Yield While Trading
+            </h2>
+          </div>
+
+          <div className="absolute bottom-10 left-10 z-20 max-w-2xl">
+            <p className="text-white/90 text-xl leading-relaxed">
+              Trade Your Assets While They Earn Yield. Revolutionary DeFi platform that maximizes capital efficiency through intelligent automation.
+            </p>
+          </div>
+
+          <div className="absolute bottom-10 right-10 z-20">
+            <LaunchAppButton
+              text="Launch App"
+              href="/app"
+            />
+          </div>
+        </div>
+        
+        <Feature
+          label="Features"
+          currentStep={1}
+          totalSteps={3}
+          title="Ultimate Capital Efficiency"
+          description="Maximize returns by keeping your entire portfolio productive. Trade your assets while they earn yield through our revolutionary DeFi platform that leverages intelligent automation for optimal capital efficiency."
+        />
       </div>
       
-      <Feature
-        label="Features"
-        currentStep={1}
-        totalSteps={3}
-        title="Ultimate Capital Efficiency"
-        description="Maximize returns by keeping your entire portfolio productive. Trade your assets while they earn yield through our revolutionary DeFi platform that leverages intelligent automation for optimal capital efficiency."
-      />
-    </div>
+      <HowItWork />
+    </>
   );
 }
