@@ -88,7 +88,7 @@ export function HowItWork() {
   return (
     <section className="bg-[#1e1b1a] relative z-10 rounded-t-[100px]">
       <div className="px-6 py-24 sm:px-8 lg:px-16">
-        <div className="max-w-7xl mx-auto text-start">
+        <div className="w-full mx-auto text-start">
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
             Earn yield while you trade.
           </h1>
@@ -96,7 +96,7 @@ export function HowItWork() {
       </div>
 
       <div className="px-6 sm:px-8 lg:px-16 pb-24">
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="mb-16">
             {/* Step labels above timeline */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 mb-12">
