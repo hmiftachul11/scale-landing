@@ -120,7 +120,7 @@ export default function SelandPage() {
 
   return (
     <>
-      <div ref={navbarRef} className="relative z-50 opacity-0">
+      <div ref={navbarRef} className="z-50 opacity-0 fixed top-10 left-10 right-10 px-6 py-4 transition-all duration-300">
         <SelandNavbar />
       </div>
       

@@ -47,7 +47,7 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
   }, []);
 
   return (
-    <div ref={ref} className={`fixed top-10 left-10 right-10 z-50 px-6 py-4 transition-all duration-300 ${className}`}>
+    <>
       <div className="flex items-center justify-between w-full">
         {/* Logo - Top Left */}
         <div ref={logoRef} className="flex items-center gap-3 transition-all duration-300">
@@ -86,7 +86,7 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 });
 
