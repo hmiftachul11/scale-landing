@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DefiBeamAnimation } from '@/components/ui/animations/DefiBeamAnimation';
 import { DottedMap } from '@/components/ui/dotted-map';
 
@@ -35,6 +38,12 @@ interface Step {
 }
 
 export function HowItWork() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const stepLabelsRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<HTMLDivElement>(null)
+  
   const steps: Step[] = [
     {
       number: 1,
@@ -82,11 +91,92 @@ export function HowItWork() {
     },
   ]
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+    
+    if (sectionRef.current && titleRef.current && stepLabelsRef.current && timelineRef.current && cardsRef.current) {
+      // const section = sectionRef.current
+      const title = titleRef.current
+      const stepLabels = stepLabelsRef.current.children
+      const timeline = timelineRef.current
+      const cards = cardsRef.current.children
+      
+      // Set initial states
+      gsap.set(title, { y: 30, opacity: 0 })
+      gsap.set(stepLabels, { y: 20, opacity: 0 })
+      gsap.set(timeline.children, { scale: 0, opacity: 0 })
+      gsap.set(cards, { y: 50, opacity: 0 })
+      
+      // Title animation
+      gsap.to(title, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: title,
+          start: "top 85%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      })
+      
+      // Step labels animation
+      gsap.to(stepLabels, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: stepLabelsRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      })
+      
+      // Timeline dots animation
+      gsap.to(timeline.children, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: timeline,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      })
+      
+      // Cards staggered animation
+      gsap.to(cards, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      })
+    }
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    }
+  }, [])
+
   return (
-    <section className="bg-[#1e1b1a] relative z-10 rounded-t-[100px]">
+    <section ref={sectionRef} className="bg-[#1e1b1a] relative z-10 rounded-t-[100px]">
       <div className="px-6 py-24 sm:px-8 lg:px-16">
         <div className="w-full mx-auto text-start">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
+          <h1 ref={titleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
             Earn yield while you trade.
           </h1>
         </div>
@@ -96,7 +186,7 @@ export function HowItWork() {
         <div className="w-full mx-auto">
           <div className="mb-16">
             {/* Step labels above timeline */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 mb-12">
+            <div ref={stepLabelsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 mb-12">
               {steps.map((step) => (
                 <div key={step.number} className="flex flex-col">
                   <p className="text-sm font-semibold tracking-wide text-white/80 mb-2">STEP {step.number}</p>
@@ -105,7 +195,7 @@ export function HowItWork() {
               ))}
             </div>
 
-            <div className="flex items-center gap-0 mb-16">
+            <div ref={timelineRef} className="flex items-center gap-0 mb-16">
               {steps.map((_, index) => (
                 <div key={index} className="flex items-center flex-1">
                   <div className="w-2 h-2 bg-orange-500 rounded-full" />
@@ -117,7 +207,7 @@ export function HowItWork() {
           </div>
 
           {/* Cards with integrated feature content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step) => (
               <div
                 key={step.number}

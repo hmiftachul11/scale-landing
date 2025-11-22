@@ -65,16 +65,16 @@ export function DefiBeamAnimation({
           </Circle>
         </div>
         <div className="flex flex-col justify-center gap-2">
-          <Circle ref={div1Ref} className="size-16">
+          <Circle ref={div1Ref} className="size-14">
             <Image src="/images/icon/Deposit.webp" alt="Deposit" width={48} height={48} />
           </Circle>
-          <Circle ref={div2Ref} className="size-16">
+          <Circle ref={div2Ref} className="size-14">
             <Image src="/images/icon/Earn.webp" alt="Earn" width={48} height={48} />
           </Circle>
-          <Circle ref={div3Ref} className="size-16">
+          <Circle ref={div3Ref} className="size-14">
             <Image src="/images/icon/Yield.webp" alt="Yield" width={48} height={48} />
           </Circle>
-          <Circle ref={div4Ref} className="size-16">
+          <Circle ref={div4Ref} className="size-14">
             <Image src="/images/icon/Trade.webp" alt="Trade" width={48} height={48} />
           </Circle>
         </div>
