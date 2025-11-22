@@ -1,6 +1,7 @@
 'use client';
 
 import { DefiBeamAnimation } from '@/components/ui/animations/DefiBeamAnimation';
+import { DottedMap } from '@/components/ui/dotted-map';
 
 interface ProgressItem {
   label: string;
@@ -20,7 +21,7 @@ interface Metric {
 }
 
 interface StepContent {
-  type: "metrics" | "progress" | "checklist" | "tracker" | "animation";
+  type: "metrics" | "progress" | "checklist" | "tracker" | "animation" | "map";
   metrics?: Metric[];
   items?: ProgressItem[] | ChecklistItem[];
   progress?: number;
@@ -76,8 +77,7 @@ export function HowItWork() {
       title: "Maximize Returns",
       description: "Monitor both your market performance and accumulated yield in real-time.",
       content: {
-        type: "tracker",
-        progress: 68,
+        type: "map",
       },
     },
   ]
@@ -127,7 +127,7 @@ export function HowItWork() {
                   <p className="text-sm text-white/70 leading-relaxed">{step.description}</p>
 
                   {step.content.type === "progress" && step.content.items && (
-                    <div className="space-y-4">
+                    <div className="space-y-4 bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
                       {(step.content.items as ProgressItem[]).map((item, idx) => (
                         <div key={idx}>
                           <div className="flex justify-between items-center mb-2">
@@ -204,13 +204,35 @@ export function HowItWork() {
                   )}
 
                   {step.content.type === "animation" && (
-                    <div className="w-full">
+                    <div className="w-full ">
                       <DefiBeamAnimation
                         className="h-[300px] bg-transparent"
                         duration={6}
                         gradientStartColor="#ED6918"
                         gradientStopColor="#FFA500"
                       />
+                    </div>
+                  )}
+
+                  {step.content.type === "map" && (
+                    <div className="w-full bg-black/5 rounded-xl p-4 border border-white/10">
+                      <DottedMap markers={[
+                        { lat: 40.7128, lng: -74.006, size: 0.3 }, // New York
+                        { lat: 34.0522, lng: -118.2437, size: 0.3 }, // Los Angeles
+                        { lat: 51.5074, lng: -0.1278, size: 0.3 }, // London
+                        { lat: -33.8688, lng: 151.2093, size: 0.3 }, // Sydney
+                        { lat: 48.8566, lng: 2.3522, size: 0.3 }, // Paris
+                        { lat: 35.6762, lng: 139.6503, size: 0.3 }, // Tokyo
+                        { lat: 55.7558, lng: 37.6176, size: 0.3 }, // Moscow
+                        { lat: 39.9042, lng: 116.4074, size: 0.3 }, // Beijing
+                        { lat: 28.6139, lng: 77.209, size: 0.3 }, // New Delhi
+                        { lat: -23.5505, lng: -46.6333, size: 0.3 }, // São Paulo
+                        { lat: 1.3521, lng: 103.8198, size: 0.3 }, // Singapore
+                        { lat: 25.2048, lng: 55.2708, size: 0.3 }, // Dubai
+                        { lat: 52.52, lng: 13.405, size: 0.3 }, // Berlin
+                        { lat: 19.4326, lng: -99.1332, size: 0.3 }, // Mexico City
+                        { lat: -26.2041, lng: 28.0473, size: 0.3 }, // Johannesburg
+                      ]} />
                     </div>
                   )}
                 </div>
