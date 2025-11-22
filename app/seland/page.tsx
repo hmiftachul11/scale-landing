@@ -32,6 +32,9 @@ export default function SelandPage() {
     });
 
     // Hide content and navbar initially
+    gsap.set(content, {
+      opacity: 0,
+    });
     gsap.set(content.children, {
       y: 50,
       opacity: 0,
@@ -66,6 +69,12 @@ export default function SelandPage() {
       duration: 0.6,
       ease: 'power2.out',
     }, "-=1.2") // Start 1.2s before background animation ends
+    // Content container reveal
+    .to(content, {
+      opacity: 1,
+      duration: 0.3,
+      ease: 'power2.out',
+    }, "-=1.0")
     // Content reveal animation - staggered from bottom to top
     .to(content.children, {
       y: 0,
@@ -111,7 +120,7 @@ export default function SelandPage() {
 
   return (
     <>
-      <div ref={navbarRef} className="relative z-50">
+      <div ref={navbarRef} className="relative z-50 opacity-0">
         <SelandNavbar />
       </div>
       
@@ -129,7 +138,7 @@ export default function SelandPage() {
           <div className="absolute inset-0 bg-black/70" />
         </div>
 
-        <div ref={contentRef} className="relative z-10 h-[calc(100vh-48px)] m-6">
+        <div ref={contentRef} className="relative z-10 h-[calc(100vh-48px)] m-6 opacity-0">
           <div className="absolute top-1/4 left-10 z-20">
             <h2 className="max-w-5xl text-2xl md:text-4xl lg:text-8xl font-bold leading-tight text-white">
               Start Earning Yield While Trading
