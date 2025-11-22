@@ -8,6 +8,7 @@ import SelandNavbar from '@/components/seland/SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import Feature from '@/components/seland/Feature';
 import { HowItWork } from '@/components/seland/HowItWork';
+import { SmoothCursor } from '@/components/ui/smooth-cursor';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -144,6 +145,7 @@ export default function SelandPage() {
       </div>
       
       <HowItWork />
+      <SmoothCursor/>
     </>
   );
 }
