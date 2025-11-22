@@ -88,7 +88,7 @@ export default function Feature({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=500vh', // Match the progress bar duration
+        end: '+=700vh', // Match the progress bar duration
         scrub: 1,
       }
     });
@@ -99,7 +99,7 @@ export default function Feature({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=500vh', // Make it much longer for better animation experience
+        end: '+=700vh', // Make it much longer for better animation experience
         scrub: 1,
         pin: true,
         pinSpacing: true,
