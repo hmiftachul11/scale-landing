@@ -1,5 +1,7 @@
 'use client';
 
+import { DefiBeamAnimation } from '@/components/ui/animations/DefiBeamAnimation';
+
 interface ProgressItem {
   label: string;
   percentage: number;
@@ -18,7 +20,7 @@ interface Metric {
 }
 
 interface StepContent {
-  type: "metrics" | "progress" | "checklist" | "tracker";
+  type: "metrics" | "progress" | "checklist" | "tracker" | "animation";
   metrics?: Metric[];
   items?: ProgressItem[] | ChecklistItem[];
   progress?: number;
@@ -38,12 +40,7 @@ export function HowItWork() {
       title: "Connect Wallet",
       description: "Connect your wallet to create your trading account.",
       content: {
-        type: "metrics",
-        metrics: [
-          { label: "Setup Time", value: "< 1 min", change: "Instant", positive: true },
-          { label: "Security Score", value: "10 / 10", change: "Best", positive: true },
-          { label: "Gas Fees", value: "0", change: "Free", positive: true },
-        ],
+        type: "animation",
       },
     },
     {
@@ -203,6 +200,17 @@ export function HowItWork() {
                           style={{ width: `${step.content.progress}%` }}
                         />
                       </div>
+                    </div>
+                  )}
+
+                  {step.content.type === "animation" && (
+                    <div className="w-full">
+                      <DefiBeamAnimation
+                        className="h-[300px] bg-transparent"
+                        duration={6}
+                        gradientStartColor="#ED6918"
+                        gradientStopColor="#FFA500"
+                      />
                     </div>
                   )}
                 </div>
