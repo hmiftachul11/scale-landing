@@ -4,15 +4,15 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import OriginalIridescence from '@/components/OriginalIridescence';
-import SelandNavbar from '@/components/seland/SelandNavbar';
+import SelandNavbar from './SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
-import Feature from '@/components/seland/Feature';
-import { HowItWork } from '@/components/seland/HowItWork';
+import Feature from './Feature';
+import { HowItWork } from './HowItWork';
 import { SmoothCursor } from '@/components/ui/smooth-cursor';
-import { DefiFlywheelSection } from '@/components/seland/DefiFlywheelSection';
-import { IntegrationsMarquee } from '@/components/seland/IntegrationsMarquee';
-import { CTA } from '@/components/seland/CTA';
-import { Footer } from '@/components/seland/Footer';
+import { DefiFlywheelSection } from './DefiFlywheelSection';
+import { IntegrationsMarquee } from './IntegrationsMarquee';
+import { CTA } from './CTA';
+import { Footer } from './Footer';
 
 export default function Landing() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -27,10 +27,15 @@ export default function Landing() {
     const navbar = navbarRef.current;
     if (!bg || !content || !navbar) return;
 
+    // Store original styles to restore on cleanup
+    const originalBgStyle = bg.style.cssText;
+    const originalContentStyle = content.style.cssText;
+    const originalNavbarStyle = navbar.style.cssText;
+
     // Set final size immediately but scale to 0
     bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
     gsap.set(bg, {
-      scale: 0.001, // Nearly invisible but not 0 to avoid issues
+      scale: 0.001,
       borderRadius: '50%',
       transformOrigin: 'center center',
     });
@@ -54,16 +59,14 @@ export default function Landing() {
     // Background expansion
     tl.to(bg, {
       scale: 1,
-      borderRadius: '24px', // rounded-2xl in px
+      borderRadius: '24px',
       duration: 2.5,
       ease: 'power3.out',
       onComplete: () => {
-        // After animation, set up for scroll behavior
-        bg.style.transition = 'all 1s ease-in-out';
-        // Clear GSAP styles to let CSS take over
-        bg.style.scale = '';
-        bg.style.borderRadius = '';
-        bg.style.transformOrigin = '';
+        if (bg) {
+          bg.style.transition = 'all 1s ease-in-out';
+          gsap.set(bg, { clearProps: "scale,borderRadius,transformOrigin" });
+        }
       }
     })
     // Navbar reveal animation
@@ -72,7 +75,7 @@ export default function Landing() {
       opacity: 1,
       duration: 0.6,
       ease: 'power2.out',
-    }, "-=1.2") // Start 1.2s before background animation ends
+    }, "-=1.2")
     // Content container reveal
     .to(content, {
       opacity: 1,
@@ -85,39 +88,67 @@ export default function Landing() {
       opacity: 1,
       duration: 0.8,
       ease: 'power2.out',
-      stagger: 0.15, // 150ms delay between each element
-    }, "-=0.8"); // Start 0.8s before background animation ends
+      stagger: 0.15,
+    }, "-=0.8");
 
     // Animation to change classes on scroll
-    ScrollTrigger.create({
+    const scrollTrigger = ScrollTrigger.create({
       trigger: document.body,
       start: 'top -50px',
       end: 'top -100px',
       onEnter: () => {
-        bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
-        bg.style.transition = 'all 1s ease-in-out';
+        if (bg) {
+          bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
+          bg.style.transition = 'all 1s ease-in-out';
+        }
       },
       onLeave: () => {
-        bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
-        bg.style.transition = 'all 1s ease-in-out';
+        if (bg) {
+          bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
+          bg.style.transition = 'all 1s ease-in-out';
+        }
       },
       onEnterBack: () => {
-        bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
-        bg.style.transition = 'all 1s ease-in-out';
+        if (bg) {
+          bg.className = 'fixed inset-0 z-0 m-[-30px] rounded-none overflow-hidden';
+          bg.style.transition = 'all 1s ease-in-out';
+        }
       },
       onLeaveBack: () => {
-        bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
-        bg.style.transition = 'all 1s ease-in-out';
-        bg.style.top = '';
-        bg.style.left = '';
-        bg.style.width = '';
-        bg.style.height = '';
-        bg.style.margin = '';
-        bg.style.borderRadius = '';
+        if (bg) {
+          bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
+          bg.style.transition = 'all 1s ease-in-out';
+          // Clear specific properties instead of setting them
+          bg.style.removeProperty('top');
+          bg.style.removeProperty('left');
+          bg.style.removeProperty('width');
+          bg.style.removeProperty('height');
+          bg.style.removeProperty('margin');
+          bg.style.removeProperty('border-radius');
+        }
       }
     });
 
     return () => {
+      // Kill timeline first
+      tl.kill();
+      // Kill scroll trigger
+      scrollTrigger.kill();
+      // Clear all GSAP properties and restore original styles
+      if (bg) {
+        gsap.set(bg, { clearProps: "all" });
+        bg.style.cssText = originalBgStyle;
+      }
+      if (content) {
+        gsap.set(content, { clearProps: "all" });
+        gsap.set(content.children, { clearProps: "all" });
+        content.style.cssText = originalContentStyle;
+      }
+      if (navbar) {
+        gsap.set(navbar, { clearProps: "all" });
+        navbar.style.cssText = originalNavbarStyle;
+      }
+      // Kill any remaining ScrollTriggers
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
