@@ -62,13 +62,13 @@ export function CTA() {
     }, [])
 
     return (
-        <section ref={sectionRef} className="pt-18 pb-36">
-            <div className="px-6 sm:px-8 lg:px-16">
+        <section ref={sectionRef} className="pt-12 sm:pt-16 md:pt-18 pb-20 sm:pb-28 md:pb-36">
+            <div className="px-4 sm:px-6 md:px-8 lg:px-16">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 ref={titleRef} className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                         Experience the DeFi Flywheel
                     </h2>
-                    <p ref={descriptionRef} className="text-xl text-gray-400 leading-relaxed mb-12 max-w-2xl mx-auto">
+                    <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-xl md:max-w-2xl mx-auto">
                         Start earning yield while you trade. Join the revolution of capital efficiency with Order Book DEX integrated with Lending Protocol.
                     </p>
                     <div ref={buttonRef} className="flex justify-center">
