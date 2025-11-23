@@ -50,8 +50,8 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(({ className = '' }, ref)
     <>
       <div className="flex items-center justify-between w-full">
         {/* Logo - Top Left */}
-        <div ref={logoRef} className="flex items-center gap-3 transition-all duration-300">
-          <div className="relative w-8 h-8">
+        <div ref={logoRef} className="flex items-center gap-2 sm:gap-3 transition-all duration-300">
+          <div className="relative w-6 sm:w-7 md:w-8 h-6 sm:h-7 md:h-8">
             <Image
               src="/images/logo/ScaleX.webp"
               alt="ScaleX Logo"
@@ -60,20 +60,20 @@ const Navbar = forwardRef<HTMLDivElement, NavbarProps>(({ className = '' }, ref)
               className="w-full h-full object-contain"
             />
           </div>
-          <span className="font-bold text-2xl md:text-xl text-white">
+          <span className="font-bold text-lg sm:text-xl md:text-2xl lg:text-xl text-white">
             ScaleX
           </span>
         </div>
 
         {/* Navigation Pill - Top Right */}
-        <div className="bg-white/20 backdrop-blur-md rounded-lg cursor-pointer px-2 py-2">
+        <div className="bg-white/20 backdrop-blur-md rounded-lg cursor-pointer px-1 sm:px-2 py-1 sm:py-2">
           <div className="flex items-center space-x-1">
-            <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10 tracking-wider">
+            <button className="hidden sm:block px-2 sm:px-3 md:px-4 py-2 sm:py-3 text-gray-300 hover:text-white text-xs sm:text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10 tracking-wider">
               DOCUMENTATION
             </button>
             <Link
               href="#"
-              className="px-4 py-3 bg-[#1e1c1c] hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all tracking-wider"
+              className="px-3 sm:px-4 py-2 sm:py-3 bg-[#1e1c1c] hover:bg-gray-700 text-white text-xs sm:text-sm font-medium rounded-lg cursor-pointer transition-all tracking-wider"
             >
               WAITLIST
             </Link>
