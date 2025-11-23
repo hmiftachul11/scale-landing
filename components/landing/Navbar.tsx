@@ -6,11 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import Image from 'next/image';
 
-interface SelandNavbarProps {
+interface NavbarProps {
   className?: string;
 }
 
-const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className = '' }, ref) => {
+const Navbar = forwardRef<HTMLDivElement, NavbarProps>(({ className = '' }, ref) => {
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,8 +35,8 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
         start: 'top -50px', // Changed to earlier trigger
         end: 'bottom top',
         toggleActions: 'play none none reverse',
-        onEnter: () => console.log('SelandNavbar: Logo background ON'),
-        onLeaveBack: () => console.log('SelandNavbar: Logo background OFF'),
+        onEnter: () => console.log('Navbar: Logo background ON'),
+        onLeaveBack: () => console.log('Navbar: Logo background OFF'),
       }
     });
 
@@ -84,6 +84,6 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
   );
 });
 
-SelandNavbar.displayName = 'SelandNavbar';
+Navbar.displayName = 'Navbar';
 
-export default SelandNavbar;
+export default Navbar;

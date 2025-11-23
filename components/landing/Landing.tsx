@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Iridescence from '@/components/Iridescence';
-import SelandNavbar from './SelandNavbar';
+import Navbar from './Navbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import Feature from './Feature';
 import { HowItWork } from './HowItWork';
@@ -155,7 +155,7 @@ export default function Landing() {
   return (
     <>
       <div ref={navbarRef} className="z-50 opacity-0 fixed top-10 left-10 right-10 px-6 py-4 transition-all duration-300">
-        <SelandNavbar />
+        <Navbar />
       </div>
       
       <div className="min-h-screen">
