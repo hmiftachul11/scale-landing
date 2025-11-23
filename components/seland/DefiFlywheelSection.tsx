@@ -129,7 +129,7 @@ export function DefiFlywheelSection() {
         {/* Left Section */}
         <div className="flex-1 flex flex-col justify-start px-12 lg:px-20 py-14">
           <div className="max-w-xl">
-            <h1 ref={titleRef} className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            <h1 ref={titleRef} className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
               The Perfect DeFi Flywheel
             </h1>
             <p ref={descriptionRef} className="text-gray-400 text-lg leading-relaxed mb-8">
