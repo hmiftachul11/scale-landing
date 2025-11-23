@@ -212,8 +212,6 @@ export default function Landing() {
       <CTA />
 
       <Footer />
-
-      <SmoothCursor/>
     </>
   );
 }
