@@ -197,12 +197,12 @@ export default function Feature({
       )}
 
       {/* Content wrapper */}
-      <div className="absolute top-1/5 z-10 w-full">
+      <div className="absolute top-1/6 sm:top-1/5 z-10 w-full">
         {/* Header */}
-        <div className="px-8 py-6 mx-10 mb-4">
+        <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-6 mx-4 sm:mx-6 md:mx-10 mb-4">
           <div className="flex items-center gap-2 bg-white/20 w-fit px-3 py-2 rounded-lg">
-            <div className="w-5 h-5 bg-orange-600 rounded-lg" />
-            <span className="text-sm font-semibold text-white tracking-widest uppercase">{label}</span>
+            <div className="w-4 sm:w-5 h-4 sm:h-5 bg-orange-600 rounded-lg" />
+            <span className="text-xs sm:text-sm font-semibold text-white tracking-widest uppercase">{label}</span>
           </div>
         </div>
 
@@ -216,22 +216,22 @@ export default function Feature({
         </div>
 
         {/* Main content */}
-        <div className="flex items-start mt-8 mx-10">
-          {/* Left side - 1/3 width */}
-          <div className="w-1/3 flex items-start px-8">
-            <div className="border border-white/20 rounded-full px-6 py-3 bg-white/5 backdrop-blur-sm">
-              <span className="text-white text-sm font-light tracking-widest">
+        <div className="flex flex-col sm:flex-row items-start mt-6 sm:mt-8 mx-4 sm:mx-6 md:mx-10">
+          {/* Left side - Step counter */}
+          <div className="w-full sm:w-1/3 flex items-start px-4 sm:px-6 md:px-8 mb-6 sm:mb-0">
+            <div className="border border-white/20 rounded-full px-4 sm:px-6 py-2 sm:py-3 bg-white/5 backdrop-blur-sm">
+              <span className="text-white text-xs sm:text-sm font-light tracking-widest">
                 {String(currentContent.step).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
               </span>
             </div>
           </div>
 
-          {/* Right side - 2/3 width */}
-          <div ref={contentRef} className="w-2/3 px-8 pr-16">
-            <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          {/* Right side - Content */}
+          <div ref={contentRef} className="w-full sm:w-2/3 px-4 sm:px-6 md:px-8 pr-4 sm:pr-8 md:pr-16">
+            <h2 ref={titleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               {currentContent.title}
             </h2>
-            <p ref={descriptionRef} className="text-2xl md:text-3xl text-white leading-relaxed text-balance">
+            <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white leading-relaxed text-balance">
               {currentContent.description}
             </p>
           </div>
