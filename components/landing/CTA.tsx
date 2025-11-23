@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import LaunchAppButton from '../ui/LaunchAppButton'
+import LaunchAppButton from '../ui/animations/LaunchAppButton'
 
 export function CTA() {
     const sectionRef = useRef<HTMLDivElement>(null)

@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Iridescence from '@/components/ui/animations/Iridescence';
 import Navbar from './Navbar';
-import LaunchAppButton from '@/components/ui/LaunchAppButton';
+import LaunchAppButton from '@/components/ui/animations/LaunchAppButton';
 import Feature from './Feature';
 import { HowItWork } from './HowItWork';
 import { DefiFlywheelSection } from './DefiFlywheelSection';
