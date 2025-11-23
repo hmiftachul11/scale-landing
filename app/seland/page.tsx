@@ -11,6 +11,7 @@ import { HowItWork } from '@/components/seland/HowItWork';
 import { SmoothCursor } from '@/components/ui/smooth-cursor';
 import { DefiFlywheelSection } from '@/components/seland/DefiFlywheelSection';
 import { IntegrationsMarquee } from '@/components/seland/IntegrationsMarquee';
+import { CTA } from '@/components/seland/CTA';
 
 export default function SelandPage() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -175,6 +176,8 @@ export default function SelandPage() {
       <IntegrationsMarquee />
 
       <DefiFlywheelSection />
+
+      <CTA />
 
       <SmoothCursor/>
     </>
