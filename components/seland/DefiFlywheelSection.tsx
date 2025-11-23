@@ -1,8 +1,16 @@
 "use client"
 
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LaunchAppButton from "../ui/LaunchAppButton"
 
 export function DefiFlywheelSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null)
+  const stepsRef = useRef<HTMLDivElement>(null)
   const steps = [
     {
       number: "01",
@@ -31,18 +39,78 @@ export function DefiFlywheelSection() {
     }
   ]
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+    
+    if (sectionRef.current && titleRef.current && descriptionRef.current && buttonRef.current && stepsRef.current) {
+      const title = titleRef.current
+      const description = descriptionRef.current
+      const button = buttonRef.current
+      const steps = stepsRef.current.children
+      
+      // Set initial states
+      gsap.set(title, { y: 50, opacity: 0 })
+      gsap.set(description, { y: 30, opacity: 0 })
+      gsap.set(button, { y: 20, opacity: 0 })
+      gsap.set(steps, { x: 50, opacity: 0 })
+      
+      // Create timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      })
+      
+      // Animate left section elements
+      tl.to(title, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      })
+      .to(description, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out"
+      }, "-=0.7")
+      .to(button, {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.out"
+      }, "-=0.5")
+      
+      // Animate steps with stagger
+      .to(steps, {
+        x: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out"
+      }, "-=0.3")
+    }
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-[#1e1c1c] relative z-10 text-white flex">
+    <div ref={sectionRef} className="min-h-screen bg-[#1e1c1c] relative z-10 text-white flex">
       {/* Left Section */}
       <div className="flex-1 flex flex-col justify-start px-12 lg:px-20 py-20">
         <div className="max-w-xl">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h1 ref={titleRef} className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
             The Perfect DeFi Flywheel
           </h1>
-          <p className="text-gray-400 text-lg leading-relaxed mb-8">
+          <p ref={descriptionRef} className="text-gray-400 text-lg leading-relaxed mb-8">
             Matching Order Book Dex with Lending Protocol creates a self-reinforcing flywheel effect where idle trading capital generates yield, higher yields attract more liquidity, better liquidity improves trading conditions, and increased trading volume drives more borrowing demand - creating an unstoppable cycle of growth.
           </p>
-          <div className="w-fit">
+          <div ref={buttonRef} className="w-fit">
             <LaunchAppButton />
           </div>
         </div>
@@ -50,7 +118,7 @@ export function DefiFlywheelSection() {
 
       {/* Right Section */}
       <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
-        <div className="space-y-12">
+        <div ref={stepsRef} className="space-y-12">
           {steps.map((step, index) => (
             <div key={step.number} className="flex gap-8">
               <div className="flex flex-col items-center">
