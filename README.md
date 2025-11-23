@@ -62,8 +62,8 @@ ScaleX is a revolutionary DeFi platform that maximizes capital efficiency throug
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/scalex-landing-page.git
-cd scalex-landing-page
+git clone https://github.com/ScaleX-Protocol/landing-page.git
+cd landing-page
 ```
 
 2. Install dependencies:
