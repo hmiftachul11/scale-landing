@@ -1,6 +1,6 @@
 # ScaleX - Revolutionary DeFi Platform
 
-![ScaleX Logo](./public/images/logo/ScaleX.webp)
+<img src="./public/images/logo/ScaleX.webp" alt="ScaleX Logo" width="120" height="120">
 
 **Trade Your Assets While They Earn Yield**
 
