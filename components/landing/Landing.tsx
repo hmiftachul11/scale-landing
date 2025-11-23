@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import OriginalIridescence from '@/components/OriginalIridescence';
+import Iridescence from '@/components/Iridescence';
 import SelandNavbar from './SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import Feature from './Feature';
@@ -164,7 +164,7 @@ export default function Landing() {
           ref={bgRef}
           className="fixed inset-0 z-0 m-[-40] rounded-2xl overflow-hidden"
         >
-          <OriginalIridescence
+          <Iridescence
             color={[0.93, 0.41, 0.09]}
             speed={1}
             amplitude={0.05}

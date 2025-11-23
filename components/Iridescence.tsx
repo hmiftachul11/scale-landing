@@ -44,20 +44,20 @@ void main() {
 }
 `;
 
-interface OriginalIridescenceProps {
+interface IridescenceProps {
   color?: [number, number, number];
   speed?: number;
   amplitude?: number;
   mouseReact?: boolean;
 }
 
-export default function OriginalIridescence({
+export default function Iridescence({
   color = [1, 1, 1],
   speed = 1.0,
   amplitude = 0.1,
   mouseReact = true,
   ...rest
-}: OriginalIridescenceProps) {
+}: IridescenceProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
   const mousePos = useRef({ x: 0.5, y: 0.5 });
 
