@@ -2,14 +2,38 @@
 
 import React, { forwardRef, useRef } from "react"
 import Image from "next/image"
+import { Wallet, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AnimatedBeam } from "@/components/ui/animated-beam"
 
-const Circle = forwardRef<
-  HTMLDivElement,
-  { className?: string; children?: React.ReactNode }
->(({ className, children }, ref) => {
-  return (
+// Types
+interface DefiBeamAnimationProps {
+  className?: string
+  duration?: number
+  gradientStartColor?: string
+  gradientStopColor?: string
+}
+
+interface CircleProps {
+  className?: string
+  children?: React.ReactNode
+}
+
+// Constants
+const DEFAULT_DURATION = 8
+const DEFAULT_GRADIENT_START = "#ED6918"
+const DEFAULT_GRADIENT_STOP = "#FFA500"
+
+const DEFI_ACTIONS = [
+  { id: "deposit", icon: "/images/icon/Deposit.webp", alt: "Deposit" },
+  { id: "earn", icon: "/images/icon/Earn.webp", alt: "Earn" },
+  { id: "yield", icon: "/images/icon/Yield.webp", alt: "Yield" },
+  { id: "trade", icon: "/images/icon/Trade.webp", alt: "Trade" },
+] as const
+
+// Components
+const Circle = forwardRef<HTMLDivElement, CircleProps>(
+  ({ className, children }, ref) => (
     <div
       ref={ref}
       className={cn(
@@ -20,30 +44,34 @@ const Circle = forwardRef<
       {children}
     </div>
   )
-})
+)
 
 Circle.displayName = "Circle"
 
-interface DefiBeamAnimationProps {
-  className?: string
-  duration?: number
-  gradientStartColor?: string
-  gradientStopColor?: string
-}
-
 export function DefiBeamAnimation({
   className,
-  duration = 8,
-  gradientStartColor = "#ED6918",
-  gradientStopColor = "#FFA500"
+  duration = DEFAULT_DURATION,
+  gradientStartColor = DEFAULT_GRADIENT_START,
+  gradientStopColor = DEFAULT_GRADIENT_STOP
 }: DefiBeamAnimationProps) {
+  // Refs
   const containerRef = useRef<HTMLDivElement>(null)
-  const div1Ref = useRef<HTMLDivElement>(null)
-  const div2Ref = useRef<HTMLDivElement>(null)
-  const div3Ref = useRef<HTMLDivElement>(null)
-  const div4Ref = useRef<HTMLDivElement>(null)
-  const div6Ref = useRef<HTMLDivElement>(null)
-  const div7Ref = useRef<HTMLDivElement>(null)
+  const userRef = useRef<HTMLDivElement>(null)
+  const walletRef = useRef<HTMLDivElement>(null)
+  const actionRefs = {
+    deposit: useRef<HTMLDivElement>(null),
+    earn: useRef<HTMLDivElement>(null),
+    yield: useRef<HTMLDivElement>(null),
+    trade: useRef<HTMLDivElement>(null),
+  }
+
+  // Beam configuration
+  const beamProps = {
+    containerRef,
+    duration,
+    gradientStartColor,
+    gradientStopColor,
+  }
 
   return (
     <div
@@ -53,162 +81,54 @@ export function DefiBeamAnimation({
       )}
       ref={containerRef}
     >
+      {/* Layout Container */}
       <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-10">
+        {/* User Section */}
         <div className="flex flex-col justify-center">
-          <Circle ref={div7Ref}>
-            <Icons.user />
+          <Circle ref={userRef}>
+            <User className="h-6 w-6 text-black" />
           </Circle>
         </div>
+
+        {/* Wallet Section */}
         <div className="flex flex-col justify-center">
-          <Circle ref={div6Ref} className="size-16">
-            <Icons.wallet />
+          <Circle ref={walletRef} className="size-16">
+            <Wallet className="h-6 w-6 text-black" />
           </Circle>
         </div>
+
+        {/* DeFi Actions Section */}
         <div className="flex flex-col justify-center gap-2">
-          <Circle ref={div1Ref} className="size-14">
-            <Image src="/images/icon/Deposit.webp" alt="Deposit" width={48} height={48} />
-          </Circle>
-          <Circle ref={div2Ref} className="size-14">
-            <Image src="/images/icon/Earn.webp" alt="Earn" width={48} height={48} />
-          </Circle>
-          <Circle ref={div3Ref} className="size-14">
-            <Image src="/images/icon/Yield.webp" alt="Yield" width={48} height={48} />
-          </Circle>
-          <Circle ref={div4Ref} className="size-14">
-            <Image src="/images/icon/Trade.webp" alt="Trade" width={48} height={48} />
-          </Circle>
+          {DEFI_ACTIONS.map((action) => (
+            <Circle key={action.id} ref={actionRefs[action.id]} className="size-14">
+              <Image
+                src={action.icon}
+                alt={action.alt}
+                width={48}
+                height={48}
+                className="object-contain"
+              />
+            </Circle>
+          ))}
         </div>
       </div>
 
-      {/* AnimatedBeams */}
+      {/* Animated Beams */}
+      {DEFI_ACTIONS.map((action) => (
+        <AnimatedBeam
+          key={`${action.id}-to-wallet`}
+          {...beamProps}
+          fromRef={actionRefs[action.id]}
+          toRef={walletRef}
+        />
+      ))}
+
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div6Ref}
-        duration={duration}
-        gradientStartColor={gradientStartColor}
-        gradientStopColor={gradientStopColor}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div6Ref}
-        duration={duration}
-        gradientStartColor={gradientStartColor}
-        gradientStopColor={gradientStopColor}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div6Ref}
-        duration={duration}
-        gradientStartColor={gradientStartColor}
-        gradientStopColor={gradientStopColor}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div4Ref}
-        toRef={div6Ref}
-        duration={duration}
-        gradientStartColor={gradientStartColor}
-        gradientStopColor={gradientStopColor}
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div6Ref}
-        toRef={div7Ref}
-        duration={duration}
-        gradientStartColor={gradientStartColor}
-        gradientStopColor={gradientStopColor}
+        {...beamProps}
+        fromRef={walletRef}
+        toRef={userRef}
       />
     </div>
   )
 }
 
-const Icons = {
-  wallet: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
-      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
-    </svg>
-  ),
-  deposit: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-    </svg>
-  ),
-  earn: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
-    </svg>
-  ),
-  yield: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <line x1="12" y1="2" x2="12" y2="22"/>
-      <path d="m5 9 7-7 7 7"/>
-      <path d="m9 22 3-3 3 3"/>
-    </svg>
-  ),
-  trade: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <polyline points="17 1 21 5 17 9"/>
-      <path d="m21 5H9a4 4 0 0 0-4 4v2"/>
-      <polyline points="7 23 3 19 7 15"/>
-      <path d="m3 19h12a4 4 0 0 0 4-4v-2"/>
-    </svg>
-  ),
-  user: () => (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#000000"
-      strokeWidth="2"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  ),
-}
