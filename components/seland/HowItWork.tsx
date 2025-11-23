@@ -173,7 +173,7 @@ export function HowItWork() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-[#1e1b1a] relative z-10 rounded-t-[100px]">
+    <section ref={sectionRef} className="bg-[#1e1c1c] relative z-10 rounded-t-[100px]">
       <div className="px-6 py-24 sm:px-8 lg:px-16">
         <div className="w-full mx-auto text-start">
           <h1 ref={titleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">

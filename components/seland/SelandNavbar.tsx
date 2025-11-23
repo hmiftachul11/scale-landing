@@ -79,7 +79,7 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
             </button>
             <Link
               href="#"
-              className="px-4 py-3 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all"
+              className="px-4 py-3 bg-[#1e1c1c] hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all"
             >
               WORK WITH US
             </Link>
