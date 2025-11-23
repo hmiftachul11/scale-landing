@@ -1,5 +1,8 @@
 "use client"
 
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Marquee } from "@/components/ui/marquee"
 
 const integrations = [
@@ -36,34 +39,93 @@ const integrations = [
 ]
 
 export function IntegrationsMarquee() {
+    const sectionRef = useRef<HTMLDivElement>(null)
+    const titleRef = useRef<HTMLHeadingElement>(null)
+    const marqueeRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger)
+
+        if (sectionRef.current && titleRef.current && marqueeRef.current) {
+            const title = titleRef.current
+            const marqueeContainer = marqueeRef.current
+            const cards = marqueeContainer.querySelectorAll('[data-card]')
+
+            // Set initial states
+            gsap.set(title, { y: 50, opacity: 0 })
+            gsap.set(cards, { y: 30, opacity: 0 })
+
+            // Create timeline
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            })
+
+            // Title animation
+            tl.to(title, {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out"
+            })
+
+                // Cards staggered animation
+                .to(cards, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                }, "-=0.5")
+        }
+
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+        }
+    }, [])
+
     return (
-        <div className="py-20 bg-[#1e1c1c] relative z-10">
-            <Marquee pauseOnHover className="[--duration:60s]">
-                {integrations.map((integration, index) => (
-                    <div
-                        key={index}
-                        className="mx-4 rounded-2xl border border-white/10 p-6 backdrop-blur-sm transition-all hover:scale-105 w-96 shrink-0 bg-linear-to-br from-white/5 via-white/5 to-orange-500/10 hover:border-white/20"
-                    >
-                        <div className="flex items-start gap-4">
-                            <div className="w-8 h-8">
-                                <img 
-                                    src={integration.icon} 
-                                    alt={integration.name}
-                                    className="w-full h-full object-contain"
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-xl font-semibold text-white mb-2">
-                                    {integration.name}
-                                </h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">
-                                    {integration.description}
-                                </p>
+        <div ref={sectionRef} className="py-20 bg-[#1e1c1c] relative z-10">
+            <div className="px-6 pb-24 sm:px-8 lg:px-16">
+                <div className="w-full mx-auto text-start">
+                    <h1 ref={titleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
+                        Our platform integrates
+                    </h1>
+                </div>
+            </div>
+            <div ref={marqueeRef}>
+                <Marquee pauseOnHover className="[--duration:60s]">
+                    {integrations.map((integration, index) => (
+                        <div
+                            key={index}
+                            data-card
+                            className="mx-4 rounded-2xl border border-white/10 p-6 backdrop-blur-sm transition-all hover:scale-105 w-96 shrink-0 bg-linear-to-br from-white/5 via-white/5 to-orange-500/10 hover:border-white/20"
+                        >
+                            <div className="flex items-start gap-4">
+                                <div className="w-8 h-8">
+                                    <img
+                                        src={integration.icon}
+                                        alt={integration.name}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="text-xl font-semibold text-white mb-2">
+                                        {integration.name}
+                                    </h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed">
+                                        {integration.description}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </Marquee>
+                    ))}
+                </Marquee>
+            </div>
         </div>
     )
 }
