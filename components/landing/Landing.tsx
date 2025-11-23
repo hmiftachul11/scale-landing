@@ -31,8 +31,17 @@ export default function Landing() {
     const originalContentStyle = content.style.cssText;
     const originalNavbarStyle = navbar.style.cssText;
 
-    // Set final size immediately but scale to 0
-    bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
+    // Set final size immediately but scale to 0 - responsive margins
+    const updateBgClass = () => {
+      if (window.innerWidth < 640) {
+        bg.className = 'fixed inset-0 z-0 m-2 rounded-lg overflow-hidden';
+      } else if (window.innerWidth < 768) {
+        bg.className = 'fixed inset-0 z-0 m-4 rounded-xl overflow-hidden';
+      } else {
+        bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
+      }
+    };
+    updateBgClass();
     gsap.set(bg, {
       scale: 0.001,
       borderRadius: '50%',
@@ -115,7 +124,7 @@ export default function Landing() {
       },
       onLeaveBack: () => {
         if (bg) {
-          bg.className = 'fixed inset-0 z-0 m-8 rounded-2xl overflow-hidden';
+          updateBgClass();
           bg.style.transition = 'all 1s ease-in-out';
           // Clear specific properties instead of setting them
           bg.style.removeProperty('top');
@@ -153,12 +162,12 @@ export default function Landing() {
   }, []);
 
   return (
-    <>
-      <div ref={navbarRef} className="z-50 opacity-0 fixed top-10 left-10 right-10 px-6 py-4 transition-all duration-300">
+    <div className="w-full overflow-hidden">
+      <div ref={navbarRef} className="z-50 opacity-0 fixed top-2 sm:top-6 md:top-10 left-2 sm:left-6 md:left-10 right-2 sm:right-6 md:right-10 px-3 sm:px-6 py-2 sm:py-4 transition-all duration-300">
         <Navbar />
       </div>
 
-      <div className="min-h-screen">
+      <div className="min-h-screen w-full">
         <div
           ref={bgRef}
           className="fixed inset-0 z-0 m-[-40] rounded-2xl overflow-hidden"
@@ -172,20 +181,38 @@ export default function Landing() {
           <div className="absolute inset-0 bg-black/70" />
         </div>
 
-        <div ref={contentRef} className="relative z-10 h-[calc(100vh-48px)] m-6 opacity-0">
-          <div className="absolute top-1/4 left-10 z-20">
-            <h2 className="max-w-5xl text-2xl md:text-4xl lg:text-8xl font-bold leading-tight text-white">
+        <div ref={contentRef} className="relative z-10 h-[calc(100vh-24px)] sm:h-[calc(100vh-32px)] md:h-[calc(100vh-48px)] m-2 sm:m-4 md:m-6 opacity-0">
+          {/* Mobile: Combined title, description, and button */}
+          <div className="block sm:hidden absolute top-1/4 left-0 right-0 z-20 text-center px-4">
+            <h2 className="text-3xl font-bold leading-tight text-white mb-6">
+              Start Earning Yield While Trading
+            </h2>
+            <p className="text-white/90 text-base leading-relaxed mb-8">
+              Trade Your Assets While They Earn Yield. Revolutionary DeFi platform that maximizes capital efficiency through intelligent automation.
+            </p>
+            <div className="transform scale-75">
+              <LaunchAppButton
+                text="Launch App"
+                href="/app"
+              />
+            </div>
+          </div>
+
+          {/* Desktop: Separate positioned elements */}
+          <div className="hidden sm:block absolute top-1/3 left-6 md:left-10 z-20">
+            <h2 className="max-w-4xl md:max-w-5xl text-4xl md:text-6xl lg:text-8xl font-bold leading-tight text-white">
               Start Earning Yield While Trading
             </h2>
           </div>
 
-          <div className="absolute bottom-10 left-10 z-20 max-w-2xl">
-            <p className="text-white/90 text-xl leading-relaxed">
+          <div className="hidden sm:block absolute bottom-16 md:bottom-10 left-6 md:left-10 z-20">
+            <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl md:max-w-2xl">
               Trade Your Assets While They Earn Yield. Revolutionary DeFi platform that maximizes capital efficiency through intelligent automation.
             </p>
           </div>
 
-          <div className="absolute bottom-10 right-10 z-20">
+          {/* Desktop: Button positioned separately */}
+          <div className="hidden sm:block absolute bottom-6 md:bottom-10 right-10 z-20">
             <LaunchAppButton
               text="Launch App"
               href="/app"
@@ -211,6 +238,6 @@ export default function Landing() {
       <CTA />
 
       <Footer />
-    </>
+    </div>
   );
 }
