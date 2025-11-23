@@ -117,48 +117,50 @@ export function DefiFlywheelSection() {
   }, [])
 
   return (
-    <div className='min-h-screen bg-[#1e1c1c] relative z-10 text-white rounded-b-[100px]'>
-      <div className="px-6 pb-12 sm:px-8 lg:px-16 bg-[#1e1c1c]">
-        <div className="w-full mx-auto text-start">
-          <h1 ref={mainTitleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
+    <div className='min-h-screen bg-[#1e1c1c] relative z-10 text-white rounded-b-[30px] md:rounded-b-[100px]'>
+      {/* Main Title Section */}
+      <div className="px-4 sm:px-6 pb-8 sm:pb-12 md:px-8 lg:px-16 bg-[#1e1c1c]">
+        <div className="w-full mx-auto text-center md:text-start">
+          <h1 ref={mainTitleRef} className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
             Order Book DEX With Lending Protocol
           </h1>
         </div>
       </div>
-      <div ref={sectionRef} className="flex">
-        {/* Left Section */}
-        <div className="flex-1 flex flex-col justify-start px-12 lg:px-20 py-14">
-          <div className="max-w-xl">
-            <h1 ref={titleRef} className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+      
+      <div ref={sectionRef} className="flex flex-col lg:flex-row">
+        {/* Left Section - Content */}
+        <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8 lg:py-14">
+          <div className="max-w-full lg:max-w-xl">
+            <h1 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 leading-tight">
               The Perfect DeFi Flywheel
             </h1>
-            <p ref={descriptionRef} className="text-gray-400 text-lg leading-relaxed mb-8">
+            <p ref={descriptionRef} className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               Matching Order Book Dex with Lending Protocol creates a self-reinforcing flywheel effect where idle trading capital generates yield, higher yields attract more liquidity, better liquidity improves trading conditions, and increased trading volume drives more borrowing demand - creating an unstoppable cycle of growth.
             </p>
-            <div ref={buttonRef} className="w-fit">
+            <div ref={buttonRef} className="w-fit transform scale-75 sm:scale-100 origin-left">
               <LaunchAppButton />
             </div>
           </div>
         </div>
 
-        {/* Right Section */}
-        <div className="flex-1 flex flex-col justify-center px-12 lg:px-20 py-16">
-          <div ref={stepsRef} className="space-y-12">
+        {/* Right Section - Steps */}
+        <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8 lg:py-16">
+          <div ref={stepsRef} className="space-y-6 sm:space-y-8 lg:space-y-12">
             {steps.map((step, index) => (
-              <div key={step.number} className="flex gap-8">
-                <div className="flex flex-col items-center">
-                  <div className="text-gray-500 text-lg font-mono mb-2">
+              <div key={step.number} className="flex gap-4 sm:gap-6 lg:gap-8">
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="text-gray-500 text-base sm:text-lg font-mono mb-2">
                     {step.number}
                   </div>
                   {index < steps.length - 1 && (
-                    <div className="w-px bg-gray-700 h-20 mt-4"></div>
+                    <div className="w-px bg-gray-700 h-12 sm:h-16 lg:h-20 mt-2 sm:mt-4"></div>
                   )}
                 </div>
-                <div className="flex-1 pb-8">
-                  <h3 className="text-xl font-semibold mb-3 text-white">
+                <div className="flex-1 pb-4 sm:pb-6 lg:pb-8">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-white">
                     {step.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
                     {step.description}
                   </p>
                 </div>

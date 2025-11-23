@@ -173,20 +173,20 @@ export function HowItWork() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-[#1e1c1c] relative z-10 rounded-t-[100px]">
-      <div className="px-6 py-24 sm:px-8 lg:px-16">
+    <section ref={sectionRef} className="bg-[#1e1c1c] relative z-10 rounded-t-[30px] md:rounded-t-[100px]">
+      <div className="px-4 sm:px-6 py-16 sm:py-24 md:px-8 lg:px-16">
         <div className="w-full mx-auto text-start">
-          <h1 ref={titleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
+          <h1 ref={titleRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
             Earn yield while you trade.
           </h1>
         </div>
       </div>
 
-      <div className="px-6 sm:px-8 lg:px-16 pb-24">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-16 pb-16 sm:pb-24">
         <div className="w-full mx-auto">
-          <div className="mb-16">
-            {/* Step labels above timeline */}
-            <div ref={stepLabelsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 mb-12">
+          {/* Desktop: Step labels above timeline */}
+          <div className="hidden lg:block mb-16">
+            <div ref={stepLabelsRef} className="grid grid-cols-4 gap-6 mb-12">
               {steps.map((step) => (
                 <div key={step.number} className="flex flex-col">
                   <p className="text-sm font-semibold tracking-wide text-white/80 mb-2">STEP {step.number}</p>
@@ -207,13 +207,23 @@ export function HowItWork() {
           </div>
 
           {/* Cards with integrated feature content */}
-          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div ref={cardsRef} className="space-y-4 lg:grid lg:grid-cols-4 lg:gap-6 lg:space-y-0">
             {steps.map((step) => (
               <div
                 key={step.number}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-white/5 to-orange-500/10 p-6 backdrop-blur-sm hover:border-white/20 transition-all duration-300"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-white/5 to-orange-500/10 p-4 sm:p-6 backdrop-blur-sm hover:border-white/20 transition-all duration-300"
               >
-                <div className="relative z-10 space-y-6">
+                {/* Mobile: Step number and title in card */}
+                <div className="lg:hidden flex items-start gap-4 mb-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    {step.number}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                  </div>
+                </div>
+
+                <div className="relative z-10 space-y-4 sm:space-y-6">
                   <p className="text-sm text-white/70 leading-relaxed">{step.description}</p>
 
                   {step.content.type === "progress" && step.content.items && (
@@ -292,9 +302,9 @@ export function HowItWork() {
                   )}
 
                   {step.content.type === "animation" && (
-                    <div className="w-full ">
+                    <div className="w-full hidden sm:block">
                       <DefiBeamAnimation
-                        className="h-[300px] bg-transparent"
+                        className="h-[200px] lg:h-[300px] bg-transparent"
                         duration={6}
                         gradientStartColor="#ED6918"
                         gradientStopColor="#FFA500"
@@ -303,7 +313,7 @@ export function HowItWork() {
                   )}
 
                   {step.content.type === "map" && (
-                    <div className="w-full bg-black/5 rounded-xl p-4 border border-white/10">
+                    <div className="w-full bg-black/5 rounded-xl p-2 sm:p-4 border border-white/10 hidden sm:block">
                       <DottedMap markers={[
                         { lat: 40.7128, lng: -74.006, size: 0.3 }, // New York
                         { lat: 34.0522, lng: -118.2437, size: 0.3 }, // Los Angeles
