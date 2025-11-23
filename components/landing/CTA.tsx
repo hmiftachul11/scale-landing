@@ -13,17 +13,17 @@ export function CTA() {
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger)
-        
+
         if (sectionRef.current && titleRef.current && descriptionRef.current && buttonRef.current) {
             const title = titleRef.current
             const description = descriptionRef.current
             const button = buttonRef.current
-            
+
             // Set initial states
             gsap.set(title, { y: 50, opacity: 0 })
             gsap.set(description, { y: 30, opacity: 0 })
             gsap.set(button, { y: 20, opacity: 0, scale: 0.9 })
-            
+
             // Create timeline
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -33,7 +33,7 @@ export function CTA() {
                     toggleActions: "play none none reverse"
                 }
             })
-            
+
             // Animate elements
             tl.to(title, {
                 y: 0,
@@ -41,21 +41,21 @@ export function CTA() {
                 duration: 1.2,
                 ease: "power2.out"
             })
-            .to(description, {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                ease: "power2.out"
-            }, "-=0.8")
-            .to(button, {
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 0.6,
-                ease: "back.out(1.7)"
-            }, "-=0.4")
+                .to(description, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "-=0.8")
+                .to(button, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "back.out(1.7)"
+                }, "-=0.4")
         }
-        
+
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill())
         }
@@ -72,7 +72,7 @@ export function CTA() {
                         Start earning yield while you trade. Join the revolution of capital efficiency with Order Book DEX integrated with Lending Protocol.
                     </p>
                     <div ref={buttonRef} className="flex justify-center">
-                        <LaunchAppButton 
+                        <LaunchAppButton
                             text="Get Started Now"
                             href="/app"
                         />

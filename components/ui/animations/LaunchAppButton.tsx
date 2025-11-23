@@ -17,7 +17,7 @@ const LaunchAppButton = forwardRef<HTMLDivElement, LaunchAppButtonProps>(
       const leftPath = e.currentTarget.querySelector('.left-path') as SVGPathElement;
       const rightPath = e.currentTarget.querySelector('.right-path') as SVGPathElement;
       const arrow = e.currentTarget.querySelector('.arrow') as HTMLElement;
-      
+
       if (leftPath) {
         leftPath.style.fill = '#CD6529';
         leftPath.setAttribute('d', 'M0 12C0 5.37258 5.37258 0 12 0H196.047C200.868 0 205.22 2.88468 207.099 7.32432L218.945 35.3243C222.292 43.2364 216.484 52 207.893 52H12C5.37259 52 0 46.6274 0 40V12Z');
@@ -33,7 +33,7 @@ const LaunchAppButton = forwardRef<HTMLDivElement, LaunchAppButtonProps>(
       const leftPath = e.currentTarget.querySelector('.left-path') as SVGPathElement;
       const rightPath = e.currentTarget.querySelector('.right-path') as SVGPathElement;
       const arrow = e.currentTarget.querySelector('.arrow') as HTMLElement;
-      
+
       if (leftPath) {
         leftPath.style.fill = '#414345';
         leftPath.setAttribute('d', 'M0 12C0 5.37258 5.37258 0 12 0H207.893C216.484 0 222.292 8.76365 218.945 16.6757L207.099 44.6757C205.22 49.1153 200.868 52 196.047 52H12C5.37258 52 0 46.6274 0 40V12Z');
@@ -50,7 +50,7 @@ const LaunchAppButton = forwardRef<HTMLDivElement, LaunchAppButtonProps>(
     };
 
     return (
-      <div 
+      <div
         ref={ref}
         className={`flex items-center cursor-pointer ${className}`}
         onMouseEnter={handleMouseEnter}
@@ -59,19 +59,19 @@ const LaunchAppButton = forwardRef<HTMLDivElement, LaunchAppButtonProps>(
       >
         {/* Gray trapezoid section with SVG background */}
         <div className="relative">
-          <svg 
+          <svg
             className="left-svg"
-            width="226" 
-            height="52" 
-            viewBox="0 0 226 52" 
-            fill="none" 
+            width="226"
+            height="52"
+            viewBox="0 0 226 52"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path 
+            <path
               className="left-path"
-              d="M0 12C0 5.37258 5.37258 0 12 0H207.893C216.484 0 222.292 8.76365 218.945 16.6757L207.099 44.6757C205.22 49.1153 200.868 52 196.047 52H12C5.37258 52 0 46.6274 0 40V12Z" 
+              d="M0 12C0 5.37258 5.37258 0 12 0H207.893C216.484 0 222.292 8.76365 218.945 16.6757L207.099 44.6757C205.22 49.1153 200.868 52 196.047 52H12C5.37258 52 0 46.6274 0 40V12Z"
               fill="#414345"
-              style={{ 
+              style={{
                 fill: '#414345',
                 transition: 'fill 0.5s ease, d 0.5s ease'
               }}
@@ -81,33 +81,33 @@ const LaunchAppButton = forwardRef<HTMLDivElement, LaunchAppButtonProps>(
             <span className="text-white text-lg font-extralight">{text}</span>
           </div>
         </div>
-        
+
         {/* Orange trapezoid section with SVG background */}
         <Link href={href} className="relative -ml-2">
-          <svg 
+          <svg
             className="right-svg"
-            width="70" 
-            height="52" 
-            viewBox="0 0 70 52" 
-            fill="none" 
+            width="70"
+            height="52"
+            viewBox="0 0 70 52"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path 
+            <path
               className="right-path"
-              d="M19.8393 7.14592C21.7607 2.80185 26.0637 0 30.8137 0H58C64.6274 0 70 5.37258 70 12V40C70 46.6274 64.6274 52 58 52H18.4291C9.75445 52 3.94574 43.0792 7.45469 35.1459L19.8393 7.14592Z" 
+              d="M19.8393 7.14592C21.7607 2.80185 26.0637 0 30.8137 0H58C64.6274 0 70 5.37258 70 12V40C70 46.6274 64.6274 52 58 52H18.4291C9.75445 52 3.94574 43.0792 7.45469 35.1459L19.8393 7.14592Z"
               fill="#CD6529"
-              style={{ 
+              style={{
                 fill: '#CD6529',
                 transition: 'fill 0.5s ease, d 0.5s ease'
               }}
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <ArrowRight 
-              className="w-5 h-5 text-white arrow" 
-              style={{ 
+            <ArrowRight
+              className="w-5 h-5 text-white arrow"
+              style={{
                 transform: 'translateX(4px)',
-                transition: 'transform 0.3s ease' 
+                transition: 'transform 0.3s ease'
               }}
             />
           </div>
