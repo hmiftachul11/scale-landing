@@ -20,7 +20,7 @@ export default function Landing() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
+
     const bg = bgRef.current;
     const content = contentRef.current;
     const navbar = navbarRef.current;
@@ -68,27 +68,27 @@ export default function Landing() {
         }
       }
     })
-    // Navbar reveal animation
-    .to(navbar, {
-      y: 0,
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power2.out',
-    }, "-=1.2")
-    // Content container reveal
-    .to(content, {
-      opacity: 1,
-      duration: 0.3,
-      ease: 'power2.out',
-    }, "-=1.0")
-    // Content reveal animation - staggered from bottom to top
-    .to(content.children, {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out',
-      stagger: 0.15,
-    }, "-=0.8");
+      // Navbar reveal animation
+      .to(navbar, {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power2.out',
+      }, "-=1.2")
+      // Content container reveal
+      .to(content, {
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+      }, "-=1.0")
+      // Content reveal animation - staggered from bottom to top
+      .to(content.children, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out',
+        stagger: 0.15,
+      }, "-=0.8");
 
     // Animation to change classes on scroll
     const scrollTrigger = ScrollTrigger.create({
@@ -157,9 +157,9 @@ export default function Landing() {
       <div ref={navbarRef} className="z-50 opacity-0 fixed top-10 left-10 right-10 px-6 py-4 transition-all duration-300">
         <Navbar />
       </div>
-      
+
       <div className="min-h-screen">
-        <div 
+        <div
           ref={bgRef}
           className="fixed inset-0 z-0 m-[-40] rounded-2xl overflow-hidden"
         >
@@ -192,7 +192,7 @@ export default function Landing() {
             />
           </div>
         </div>
-        
+
         <Feature
           label="Features"
           currentStep={1}
@@ -201,7 +201,7 @@ export default function Landing() {
           description="Maximize returns by keeping your entire portfolio productive. Trade your assets while they earn yield through our revolutionary DeFi platform that leverages intelligent automation for optimal capital efficiency."
         />
       </div>
-      
+
       <HowItWork />
 
       <DefiFlywheelSection />

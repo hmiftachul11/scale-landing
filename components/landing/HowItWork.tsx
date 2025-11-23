@@ -43,7 +43,7 @@ export function HowItWork() {
   const stepLabelsRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
-  
+
   const steps: Step[] = [
     {
       number: 1,
@@ -93,20 +93,20 @@ export function HowItWork() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
-    
+
     if (sectionRef.current && titleRef.current && stepLabelsRef.current && timelineRef.current && cardsRef.current) {
       // const section = sectionRef.current
       const title = titleRef.current
       const stepLabels = stepLabelsRef.current.children
       const timeline = timelineRef.current
       const cards = cardsRef.current.children
-      
+
       // Set initial states
       gsap.set(title, { y: 30, opacity: 0 })
       gsap.set(stepLabels, { y: 20, opacity: 0 })
       gsap.set(timeline.children, { scale: 0, opacity: 0 })
       gsap.set(cards, { y: 50, opacity: 0 })
-      
+
       // Title animation
       gsap.to(title, {
         y: 0,
@@ -120,7 +120,7 @@ export function HowItWork() {
           toggleActions: "play none none reverse"
         }
       })
-      
+
       // Step labels animation
       gsap.to(stepLabels, {
         y: 0,
@@ -135,7 +135,7 @@ export function HowItWork() {
           toggleActions: "play none none reverse"
         }
       })
-      
+
       // Timeline dots animation
       gsap.to(timeline.children, {
         scale: 1,
@@ -150,7 +150,7 @@ export function HowItWork() {
           toggleActions: "play none none reverse"
         }
       })
-      
+
       // Cards staggered animation
       gsap.to(cards, {
         y: 0,
@@ -166,7 +166,7 @@ export function HowItWork() {
         }
       })
     }
-    
+
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
@@ -240,9 +240,8 @@ export function HowItWork() {
                       {(step.content.items as ChecklistItem[]).map((item, idx) => (
                         <div key={idx} className="flex items-center gap-3">
                           <div
-                            className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${
-                              item.completed ? "bg-orange-500 border-orange-500" : "border-white/30"
-                            }`}
+                            className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-all ${item.completed ? "bg-orange-500 border-orange-500" : "border-white/30"
+                              }`}
                           >
                             {item.completed && (
                               <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -251,9 +250,8 @@ export function HowItWork() {
                             )}
                           </div>
                           <span
-                            className={`text-sm ${
-                              item.completed ? "text-white opacity-60" : "text-white"
-                            }`}
+                            className={`text-sm ${item.completed ? "text-white opacity-60" : "text-white"
+                              }`}
                           >
                             {item.task}
                           </span>
