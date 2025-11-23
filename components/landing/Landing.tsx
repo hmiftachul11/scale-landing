@@ -8,7 +8,6 @@ import SelandNavbar from './SelandNavbar';
 import LaunchAppButton from '@/components/ui/LaunchAppButton';
 import Feature from './Feature';
 import { HowItWork } from './HowItWork';
-import { SmoothCursor } from '@/components/ui/smooth-cursor';
 import { DefiFlywheelSection } from './DefiFlywheelSection';
 import { IntegrationsMarquee } from './IntegrationsMarquee';
 import { CTA } from './CTA';
