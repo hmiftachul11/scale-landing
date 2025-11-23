@@ -15,7 +15,7 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
+
     const logo = logoRef.current;
     if (!logo) return;
 
@@ -68,20 +68,14 @@ const SelandNavbar = forwardRef<HTMLDivElement, SelandNavbarProps>(({ className 
         {/* Navigation Pill - Top Right */}
         <div className="bg-white/20 backdrop-blur-md rounded-lg cursor-pointer px-2 py-2">
           <div className="flex items-center space-x-1">
-            <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
-              PLATFORM
-            </button>
-            <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
-              COMPANY
-            </button>
-            <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10">
-              NEWSROOM
+            <button className="px-4 py-3 text-gray-300 hover:text-white text-sm font-medium transition-colors rounded-lg cursor-pointer hover:bg-white/10 tracking-wider">
+              DOCUMENTATION
             </button>
             <Link
               href="#"
-              className="px-4 py-3 bg-[#1e1c1c] hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all"
+              className="px-4 py-3 bg-[#1e1c1c] hover:bg-gray-700 text-white text-sm font-medium rounded-lg cursor-pointer transition-all tracking-wider"
             >
-              WORK WITH US
+              WAITLIST
             </Link>
           </div>
         </div>
