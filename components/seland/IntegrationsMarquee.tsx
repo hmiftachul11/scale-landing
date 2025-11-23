@@ -89,14 +89,7 @@ export function IntegrationsMarquee() {
     }, [])
 
     return (
-        <div ref={sectionRef} className="py-20 bg-[#1e1c1c] relative z-10">
-            <div className="px-6 pb-24 sm:px-8 lg:px-16">
-                <div className="w-full mx-auto text-start">
-                    <h1 ref={titleRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance">
-                        Our platform integrates
-                    </h1>
-                </div>
-            </div>
+        <div ref={sectionRef} className="py-24 bg-[#1e1c1c]">
             <div ref={marqueeRef}>
                 <Marquee pauseOnHover className="[--duration:60s]">
                     {integrations.map((integration, index) => (

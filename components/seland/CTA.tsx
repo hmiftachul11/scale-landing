@@ -62,7 +62,7 @@ export function CTA() {
     }, [])
 
     return (
-        <section ref={sectionRef} className="py-24">
+        <section ref={sectionRef} className="pt-18 pb-36">
             <div className="px-6 sm:px-8 lg:px-16">
                 <div className="max-w-4xl mx-auto text-center">
                     <h2 ref={titleRef} className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
